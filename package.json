@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "test-03": "jest 03/app.test.js --watchAll",
     "test-04": "jest 04/User.test.js --watchAll",
-    "test-05": "jest 05/DB.test.js --watchAll"
+    "test-05": "jest 05/DB.test.js"
   },
   "keywords": [],
   "author": "",
