@@ -18,13 +18,14 @@ function getProductList() {
 }
 
 function getTotalPrice(productList) {
-  const result = productList.reduce((acc, product) => {
-    const discount = product.price * product.count * product.discount;
-
-    return acc + product.price * product.count - discount;
-  }, 0);
-
-  return result.toFixed(2);
+  return productList
+    .reduce((acc, product) => {
+      const { price, count, discount } = product;
+      const totalDiscount = price * count * discount;
+      debugger;
+      return acc + product.price * product.count - totalDiscount;
+    }, 0)
+    .toFixed(2);
 }
 
 const totalPrice = getTotalPrice(getProductList());
