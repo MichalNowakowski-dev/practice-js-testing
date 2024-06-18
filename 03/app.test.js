@@ -10,7 +10,6 @@ describe("randomNumber function", () => {
     expect(randomNumber(4, 9)).toBeLessThanOrEqual(9);
   });
   it("throws an Error if min > max", () => {
-    // expect(() => randomNumber(9, 5)).toThrow();
     expect.assertions(1);
     try {
       return randomNumber(9, 5);
@@ -19,5 +18,10 @@ describe("randomNumber function", () => {
         "Wartość minimalna nie może być większa od maksymalnej!"
       );
     }
+  });
+  it("throws an Error if min and max are not numbers", () => {
+    expect.assertions(1);
+
+    expect(() => randomNumber("9", "5")).toThrow();
   });
 });

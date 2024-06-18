@@ -3,6 +3,11 @@ export default function randomNumber(min, max) {
   if (min > max) {
     throw new Error("Wartość minimalna nie może być większa od maksymalnej!");
   }
+  if (typeof min !== "number" || typeof max !== "number") {
+    throw new TypeError(
+      "Wartosci minimalna oraz maksymana musza byc liczbami!"
+    );
+  }
 
   // Generowanie losowej liczby
   const random = Math.random();
@@ -10,10 +15,5 @@ export default function randomNumber(min, max) {
   const adjustedRandom = random * range;
   const result = min + adjustedRandom;
 
-  // Zaokrąglanie do żądanego typu (opcjonalnie)
-  if (Number.isInteger(min) && Number.isInteger(max)) {
-    return Math.floor(result);
-  } else {
-    return result;
-  }
+  return Math.floor(result);
 }
