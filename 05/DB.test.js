@@ -91,4 +91,47 @@ describe("Database", () => {
       await expect(db.remove(3)).rejects.toBe("Item not exist!");
     });
   });
+  describe("update()", () => {
+    beforeEach(() => {
+      const user = { id: 1, name: "User" };
+      return db.insert(user);
+    });
+    it("should return error message when no id is passed", async () => {
+      expect.assertions(1);
+      await expect(db.update({ name: "User" })).rejects.toBe(
+        "ID have to be set!"
+      );
+    });
+    it("should update user name in db with the same id", async () => {
+      expect.assertions(1);
+      const updatedUser = { id: 1, name: "UpdatedUser" };
+      await db.update(updatedUser);
+      const userFromDb = await db.select(1);
+      expect(userFromDb.name).toBe(updatedUser.name);
+    });
+    it("should return updated user", async () => {
+      expect.assertions(1);
+      const updatedUser = { id: 1, name: "UpdatedUser" };
+      await expect(db.update(updatedUser)).resolves.toEqual(updatedUser);
+    });
+    it("should return error message when passing wrong id", async () => {
+      expect.assertions(1);
+      const updatedUser = { id: 2, name: "UpdatedUser" };
+      await expect(db.update(updatedUser)).rejects.toEqual("ID not found!");
+    });
+  });
+  describe("truncate()", () => {
+    beforeEach(() => {
+      const user = { id: 1, name: "User" };
+      return db.insert(user);
+    });
+    it("should clear database and return true", async () => {
+      expect.assertions(3);
+      await expect(db.truncate()).resolves.toBe(true);
+      const rows = await db.getRows();
+
+      expect(rows).toEqual([]);
+      expect(rows.length).toBe(0);
+    });
+  });
 });
